@@ -1,0 +1,423 @@
+{
+	"info": {
+		"_postman_id": "2a23d35e-d045-4be1-b203-af1ec65e55b9",
+		"name": "Intermediate Apps Infra",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Availability",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{Tenant}}/api/v1/timeseries?api-token={{API-Token}}&timeseriesId=com.dynatrace.builtin:host.availability&startTimestamp=1248617435&endTimestamp=1564150235",
+					"protocol": "https",
+					"host": [
+						"{{Tenant}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"timeseries"
+					],
+					"query": [
+						{
+							"key": "api-token",
+							"value": "{{API-Token}}"
+						},
+						{
+							"key": "timeseriesId",
+							"value": "com.dynatrace.builtin:host.availability"
+						},
+						{
+							"key": "startTimestamp",
+							"value": "1248617435"
+						},
+						{
+							"key": "endTimestamp",
+							"value": "1564150235"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Sessions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://demo.live.dynatrace.com/api/v1/userSessionQueryLanguage/table?query=select%20*%20from%20usersession%20Group%20By%20userSessionId&api-token=vgnbsx3yS12HsAsVjy33B&startTimestamp=1501079144&endTimestamp=1564151144",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"live",
+						"dynatrace",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"userSessionQueryLanguage",
+						"table"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "select%20*%20from%20usersession%20Group%20By%20userSessionId"
+						},
+						{
+							"key": "api-token",
+							"value": "vgnbsx3yS12HsAsVjy33B"
+						},
+						{
+							"key": "startTimestamp",
+							"value": "1501079144"
+						},
+						{
+							"key": "endTimestamp",
+							"value": "1564151144"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Problems demo.live",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://demo.live.dynatrace.com/api/v1/problem/feed?api-token=vgnbsx3yS12HsAsVjy33B&relativeTime=week",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"live",
+						"dynatrace",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"problem",
+						"feed"
+					],
+					"query": [
+						{
+							"key": "api-token",
+							"value": "vgnbsx3yS12HsAsVjy33B"
+						},
+						{
+							"key": "relativeTime",
+							"value": "week"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Services Topology List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://demo.live.dynatrace.com/api/v1/entity/services?api-token=vgnbsx3yS12HsAsVjy33B",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"live",
+						"dynatrace",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"entity",
+						"services"
+					],
+					"query": [
+						{
+							"key": "api-token",
+							"value": "vgnbsx3yS12HsAsVjy33B"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Problems",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{Tenant}}/api/v1/entity/services?api-token={{API-Token}}",
+					"protocol": "https",
+					"host": [
+						"{{Tenant}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"entity",
+						"services"
+					],
+					"query": [
+						{
+							"key": "api-token",
+							"value": "{{API-Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Topology",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{Tenant}}/api/v1/entity/services/SERVICE-492026E8B99C984E?api-token={{API-Token}}",
+					"protocol": "https",
+					"host": [
+						"{{Tenant}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"entity",
+						"services",
+						"SERVICE-492026E8B99C984E"
+					],
+					"query": [
+						{
+							"key": "api-token",
+							"value": "{{API-Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Topology Hosts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{Tenant}}/api/v1/entity/services/SERVICE-492026E8B99C984E?api-token={{API-Token}}",
+					"protocol": "https",
+					"host": [
+						"{{Tenant}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"entity",
+						"services",
+						"SERVICE-492026E8B99C984E"
+					],
+					"query": [
+						{
+							"key": "api-token",
+							"value": "{{API-Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Maintenance Window",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"easyTravelDeployment\",\r\n  \"type\": \"Planned\",\r\n  \"description\": \"Weekly deployment of easyTravel update\",\r\n  \"suppressAlerts\": true,\r\n  \"suppressProblems\": false,\r\n  \"scope\": {\r\n    \"matches\": [\r\n      {\r\n        \"type\": \"HOST\",\r\n        \"tags\": [\r\n          {\r\n            \"context\": \"CONTEXTLESS\",\r\n            \"key\": \"test\"\r\n          }\r\n        ]\r\n      }\r\n    ]\r\n  },\r\n  \"schedule\": {\r\n    \"type\": \"Week\",\r\n    \"timezoneId\": \"UTC\",\r\n    \"maintenanceStart\": \"2018-11-25 01:00\",\r\n    \"maintenanceEnd\": \"2099-10-01 02:30\",\r\n    \"recurrence\": {\r\n      \"day\": \"SUNDAY\",\r\n      \"start\": \"01:00\",\r\n      \"duration\": 90\r\n    }\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "https://{{Tenant}}/api/v1/maintenance?api-token={{API-Token}}",
+					"protocol": "https",
+					"host": [
+						"{{Tenant}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"maintenance"
+					],
+					"query": [
+						{
+							"key": "api-token",
+							"value": "{{API-Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Annotation Event",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"eventType\": \"CUSTOM_ANNOTATION\",\r\n  \"attachRules\": {\r\n\r\n    \"tagRule\": [\r\n      {\r\n        \"meTypes\": [\r\n          \"HOST\"\r\n        ],\r\n        \"tags\": [\r\n          {\r\n            \"context\": \"CONTEXTLESS\",\r\n            \"key\": \"test\"\r\n          }\r\n        ]\r\n      }\r\n    ]\r\n  },\r\n  \"source\": \"OpsControl\",\r\n  \"annotationType\": \"LoadTest\",\r\n  \"annotationDescription\": \"Loadtest has begun\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{Tenant}}/api/v1/events?api-token={{API-Token}}",
+					"protocol": "https",
+					"host": [
+						"{{Tenant}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"events"
+					],
+					"query": [
+						{
+							"key": "api-token",
+							"value": "{{API-Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Custom Device",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"displayName\" : \"F5 Firewall 24\",\r\n  \"ipAddresses\" : [\"172.16.115.211\"],\r\n  \"listenPorts\" : [\"9999\"],\r\n  \"type\" : \"F5-Firewall\",\r\n  \"favicon\" : \"http://assets.dynatrace.com/global/icons/f5.png\",\r\n  \"configUrl\" : \"http://192.128.0.1:8080\",\r\n  \"tags\": [\r\n    \"F5\"\r\n  ],\r\n  \"properties\" : {\r\n    \"Data Center\": \"London W2\",\r\n    \"Hall\": \"4\",\r\n    \"Rack\": \"7\"\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "https://{{Tenant}}/api/v1/entity/infrastructure/custom/f5-LondonW2-4-7?api-token={{API-Token}}",
+					"protocol": "https",
+					"host": [
+						"{{Tenant}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"entity",
+						"infrastructure",
+						"custom",
+						"f5-LondonW2-4-7"
+					],
+					"query": [
+						{
+							"key": "api-token",
+							"value": "{{API-Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Custom Metric",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"displayName\" : \"Dropped TCP connections\",\r\n\t\"unit\" : \"Count\",\r\n\t\"dimensions\": [\t\t\r\n\t\t\"nic\"\r\n\t],\r\n\t\"types\": [\r\n\t\t\"F5-Firewall\"\r\n\t]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{Tenant}}/api/v1/timeseries/custom:firewall.connections.dropped?api-token={{API-Token}}",
+					"protocol": "https",
+					"host": [
+						"{{Tenant}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"timeseries",
+						"custom:firewall.connections.dropped"
+					],
+					"query": [
+						{
+							"key": "api-token",
+							"value": "{{API-Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Push Metrics to Custom Device",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"tags\": [\r\n    \"F5\"\r\n  ],\r\n   \"type\" : \"F5-Firewall\",\r\n  \"series\" : [\r\n    {\r\n      \"timeseriesId\" : \"custom:firewall.connections.dropped\",\r\n      \"dimensions\" : {\r\n        \"nic\" : \"ethernetcard1\"  \r\n      },\r\n      \"dataPoints\" : [\r\n        [ 1542452160000, 50 ],\r\n        [ 1542452220000, 75 ],\r\n        [ 1542452280000, 64 ],\r\n        [ 1542452340000, 70 ],\r\n        [ 1542452400000, 68 ]\r\n       ]\r\n    },\r\n    {\r\n      \"timeseriesId\" : \"custom:firewall.connections.dropped\",\r\n      \"dimensions\" : {\r\n        \"nic\" : \"ethernetcard2\"  \r\n      },\r\n      \"dataPoints\" : [\r\n        [ 1542452160000, 30 ],\r\n        [ 1542452220000, 25 ],\r\n        [ 1542452280000, 29 ],\r\n        [ 1542452340000, 18 ],\r\n        [ 1542452400000, 33 ]\r\n       ]\r\n    }\r\n\t]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{Tenant}}/api/v1/entity/infrastructure/custom/f5-LondonW2-4-7?api-token={{API-Token}}",
+					"protocol": "https",
+					"host": [
+						"{{Tenant}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"entity",
+						"infrastructure",
+						"custom",
+						"f5-LondonW2-4-7"
+					],
+					"query": [
+						{
+							"key": "api-token",
+							"value": "{{API-Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
