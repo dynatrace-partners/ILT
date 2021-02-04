@@ -1,12 +1,213 @@
 {
 	"info": {
-		"_postman_id": "47cddeef-7eb1-42c7-b986-ed3501fd0e45",
+		"_postman_id": "ba664a1c-f0e1-4ebe-8f0a-e3169d540162",
 		"name": "Intermediate Apps Infra",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
+			"name": "Custom Device",
+			"item": [
+				{
+					"name": "Create Custom Device",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"displayName\" : \"F5 Firewall 24\",\r\n  \"ipAddresses\" : [\"172.16.115.211\"],\r\n  \"listenPorts\" : [\"9999\"],\r\n  \"type\" : \"F5-Firewall\",\r\n  \"favicon\" : \"http://assets.dynatrace.com/global/icons/f5.png\",\r\n  \"configUrl\" : \"http://192.128.0.1:8080\",\r\n  \"tags\": [\r\n    \"F5\"\r\n  ],\r\n  \"properties\" : {\r\n    \"Data Center\": \"London W2\",\r\n    \"Hall\": \"4\",\r\n    \"Rack\": \"7\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "https://{{Tenant}}/api/v1/entity/infrastructure/custom/f5-LondonW2-4-7?api-token={{API-Token}}",
+							"protocol": "https",
+							"host": [
+								"{{Tenant}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"entity",
+								"infrastructure",
+								"custom",
+								"f5-LondonW2-4-7"
+							],
+							"query": [
+								{
+									"key": "api-token",
+									"value": "{{API-Token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Custom Metric",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"setTimeout(function(){}, 10000);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"displayName\" : \"Dropped TCP connections\",\r\n\t\"unit\" : \"Count\",\r\n\t\"dimensions\": [\t\t\r\n\t\t\"nic\"\r\n\t],\r\n\t\"types\": [\r\n\t\t\"F5-Firewall\"\r\n\t]\r\n}"
+						},
+						"url": {
+							"raw": "https://{{Tenant}}/api/v1/timeseries/custom:firewall.connections.dropped?api-token={{API-Token}}",
+							"protocol": "https",
+							"host": [
+								"{{Tenant}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"timeseries",
+								"custom:firewall.connections.dropped"
+							],
+							"query": [
+								{
+									"key": "api-token",
+									"value": "{{API-Token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Push Metrics to Custom Device",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"setTimeout(function(){}, 60000);\r",
+									"Time = Date.now();\r",
+									"pm.environment.set(\"Time\", Time);\r",
+									"var numberOfIterations = pm.environment.get(\"numberOfIterations\");\r",
+									"if (!numberOfIterations) {\r",
+									"    numberOfIterations = 5;\r",
+									"}\r",
+									"numberOfIterations--;\r",
+									"var drops = Math.floor(0 + Math.random() * 100);\r",
+									"pm.environment.set(\"drops\", drops);\r",
+									"var drops2 = Math.floor(0 + Math.random() * 100);\r",
+									"pm.environment.set(\"drops2\", drops2);\r",
+									"pm.environment.set(\"numberOfIterations\", numberOfIterations);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var numberOfIterations = pm.environment.get(\"numberOfIterations\");\r",
+									"if (numberOfIterations !== 0) {\r",
+									"    postman.setNextRequest(\"Push Metrics to Custom Device\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tags\": [\r\n    \"F5\"\r\n  ],\r\n   \"type\" : \"F5-Firewall\",\r\n  \"series\" : [\r\n    {\r\n      \"timeseriesId\" : \"custom:firewall.connections.dropped\",\r\n      \"dimensions\" : {\r\n        \"nic\" : \"ethernetcard1\"  \r\n      },\r\n      \"dataPoints\" : [\r\n        [ {{Time}}, {{drops}} ]\r\n       ]\r\n    },\r\n    {\r\n      \"timeseriesId\" : \"custom:firewall.connections.dropped\",\r\n      \"dimensions\" : {\r\n        \"nic\" : \"ethernetcard2\"  \r\n      },\r\n      \"dataPoints\" : [\r\n        [ {{Time}}, {{drops2}} ]\r\n       ]\r\n    }\r\n\t]\r\n}"
+						},
+						"url": {
+							"raw": "https://{{Tenant}}/api/v1/entity/infrastructure/custom/f5-LondonW2-4-7?api-token={{API-Token}}",
+							"protocol": "https",
+							"host": [
+								"{{Tenant}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"entity",
+								"infrastructure",
+								"custom",
+								"f5-LondonW2-4-7"
+							],
+							"query": [
+								{
+									"key": "api-token",
+									"value": "{{API-Token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Get Hosts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Parse the response to extract the public host names for your newly deployed ec2 Instances.\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var filteredProdData = jsonData.filter(function (item) {\r",
+							"  if (!item.hostGroup.name) {\r",
+							"    return\r",
+							"  }\r",
+							"  return item.hostGroup.name.includes(\"production\");\r",
+							"});\r",
+							"var filteredTestData = jsonData.filter(function (item) {\r",
+							"  if (!item.hostGroup.name) {\r",
+							"    return\r",
+							"  }\r",
+							"  return item.hostGroup.name.includes(\"test\");\r",
+							"});\r",
+							"pm.environment.set(\"prodHost\", filteredProdData[0].entityId);\r",
+							"pm.environment.set(\"testHost\", filteredTestData[0].entityId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -32,6 +233,68 @@
 							"key": "includeDetails",
 							"value": "false",
 							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Hosts V2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{Tenant}}/api/v2/entities?api-token={{API-Token}}&entitySelector=type(\"HOST\")",
+					"protocol": "https",
+					"host": [
+						"{{Tenant}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"entities"
+					],
+					"query": [
+						{
+							"key": "api-token",
+							"value": "{{API-Token}}"
+						},
+						{
+							"key": "entitySelector",
+							"value": "type(\"HOST\")"
+						},
+						{
+							"key": "fields",
+							"value": "tags, properties",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Hosts V2 Fields",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{Tenant}}/api/v2/entityTypes/HOST?api-token={{API-Token}}",
+					"protocol": "https",
+					"host": [
+						"{{Tenant}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"entityTypes",
+						"HOST"
+					],
+					"query": [
+						{
+							"key": "api-token",
+							"value": "{{API-Token}}"
 						}
 					]
 				}
@@ -83,22 +346,21 @@
 			"response": []
 		},
 		{
-			"name": "Get Problems",
+			"name": "Host CPU V2",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://{{Tenant}}/api/v1/problem/feed?api-token={{API-Token}}&relativeTime=week",
+					"raw": "https://{{Tenant}}/api/v2/metrics/query?api-token={{API-Token}}&metricSelector=builtin:host.cpu.(usage,idle)&from=now-1h&entitySelector=type(\"HOST\"),entityId(\"{{prodHost}}\")",
 					"protocol": "https",
 					"host": [
 						"{{Tenant}}"
 					],
 					"path": [
-						"",
 						"api",
-						"v1",
-						"problem",
-						"feed"
+						"v2",
+						"metrics",
+						"query"
 					],
 					"query": [
 						{
@@ -106,8 +368,51 @@
 							"value": "{{API-Token}}"
 						},
 						{
-							"key": "relativeTime",
-							"value": "week"
+							"key": "metricSelector",
+							"value": "builtin:host.cpu.(usage,idle)"
+						},
+						{
+							"key": "from",
+							"value": "now-1h"
+						},
+						{
+							"key": "entitySelector",
+							"value": "type(\"HOST\"),entityId(\"{{prodHost}}\")"
+						},
+						{
+							"key": "resolution",
+							"value": "inf",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Problems",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{Tenant}}/api/v2/problems?api-token={{API-Token}}&from=now-1d",
+					"protocol": "https",
+					"host": [
+						"{{Tenant}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"problems"
+					],
+					"query": [
+						{
+							"key": "api-token",
+							"value": "{{API-Token}}"
+						},
+						{
+							"key": "from",
+							"value": "now-1d"
 						}
 					]
 				}
@@ -238,115 +543,40 @@
 			"response": []
 		},
 		{
-			"name": "Create Custom Device",
+			"name": "OneAgent metric API",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"displayName\" : \"F5 Firewall 24\",\r\n  \"ipAddresses\" : [\"172.16.115.211\"],\r\n  \"listenPorts\" : [\"9999\"],\r\n  \"type\" : \"F5-Firewall\",\r\n  \"favicon\" : \"http://assets.dynatrace.com/global/icons/f5.png\",\r\n  \"configUrl\" : \"http://192.128.0.1:8080\",\r\n  \"tags\": [\r\n    \"F5\"\r\n  ],\r\n  \"properties\" : {\r\n    \"Data Center\": \"London W2\",\r\n    \"Hall\": \"4\",\r\n    \"Rack\": \"7\"\r\n  }\r\n}"
-				},
-				"url": {
-					"raw": "https://{{Tenant}}/api/v1/entity/infrastructure/custom/f5-LondonW2-4-7?api-token={{API-Token}}",
-					"protocol": "https",
-					"host": [
-						"{{Tenant}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"entity",
-						"infrastructure",
-						"custom",
-						"f5-LondonW2-4-7"
-					],
-					"query": [
-						{
-							"key": "api-token",
-							"value": "{{API-Token}}"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Register Custom Metric",
-			"request": {
-				"method": "PUT",
-				"header": [
+						"value": "text/plain; charset=utf-8",
+						"type": "text"
+					},
 					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
+						"key": "cha",
+						"value": "",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"displayName\" : \"Dropped TCP connections\",\r\n\t\"unit\" : \"Count\",\r\n\t\"dimensions\": [\t\t\r\n\t\t\"nic\"\r\n\t],\r\n\t\"types\": [\r\n\t\t\"F5-Firewall\"\r\n\t]\r\n}"
-				},
-				"url": {
-					"raw": "https://{{Tenant}}/api/v1/timeseries/custom:firewall.connections.dropped?api-token={{API-Token}}",
-					"protocol": "https",
-					"host": [
-						"{{Tenant}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"timeseries",
-						"custom:firewall.connections.dropped"
-					],
-					"query": [
-						{
-							"key": "api-token",
-							"value": "{{API-Token}}"
+					"raw": "cpu.temperature,cpu=1 55\r\ncpu.temperature,cpu=2 15\r\ncpu.temperature,cpu=3 30\r\ncpu.temperature,cpu=4 88",
+					"options": {
+						"raw": {
+							"language": "text"
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Push Metrics to Custom Device",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
 					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"tags\": [\r\n    \"F5\"\r\n  ],\r\n   \"type\" : \"F5-Firewall\",\r\n  \"series\" : [\r\n    {\r\n      \"timeseriesId\" : \"custom:firewall.connections.dropped\",\r\n      \"dimensions\" : {\r\n        \"nic\" : \"ethernetcard1\"  \r\n      },\r\n      \"dataPoints\" : [\r\n        [ 1542452160000, 50 ],\r\n        [ 1542452220000, 75 ],\r\n        [ 1542452280000, 64 ],\r\n        [ 1542452340000, 70 ],\r\n        [ 1542452400000, 68 ]\r\n       ]\r\n    },\r\n    {\r\n      \"timeseriesId\" : \"custom:firewall.connections.dropped\",\r\n      \"dimensions\" : {\r\n        \"nic\" : \"ethernetcard2\"  \r\n      },\r\n      \"dataPoints\" : [\r\n        [ 1542452160000, 30 ],\r\n        [ 1542452220000, 25 ],\r\n        [ 1542452280000, 29 ],\r\n        [ 1542452340000, 18 ],\r\n        [ 1542452400000, 33 ]\r\n       ]\r\n    }\r\n\t]\r\n}"
 				},
 				"url": {
-					"raw": "https://{{Tenant}}/api/v1/entity/infrastructure/custom/f5-LondonW2-4-7?api-token={{API-Token}}",
-					"protocol": "https",
+					"raw": "http://localhost:14499/metrics/ingest",
+					"protocol": "http",
 					"host": [
-						"{{Tenant}}"
+						"localhost"
 					],
+					"port": "14499",
 					"path": [
-						"api",
-						"v1",
-						"entity",
-						"infrastructure",
-						"custom",
-						"f5-LondonW2-4-7"
-					],
-					"query": [
-						{
-							"key": "api-token",
-							"value": "{{API-Token}}"
-						}
+						"metrics",
+						"ingest"
 					]
 				}
 			},
