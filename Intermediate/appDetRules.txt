@@ -1,0 +1,8 @@
+{
+    "applicationIdentifier": "THEAPP",
+    "filterConfig": {
+        "pattern": ":9080",
+        "applicationMatchType": "CONTAINS",
+        "applicationMatchTarget": "URL"
+    }
+}
