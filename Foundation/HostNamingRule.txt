@@ -1,0 +1,21 @@
+{
+  "id": "",
+  "type": "HOST",
+  "nameFormat": "{Ec2Instance:PublicHostName}",
+  "displayName": "Public EC2 Hostname",
+  "enabled": true,
+  "rules": [
+    {
+      "key": {
+        "attribute": "EC2_INSTANCE_PUBLIC_HOST_NAME"
+      },
+      "comparisonInfo": {
+        "type": "STRING",
+        "operator": "EXISTS",
+        "value": null,
+        "negate": false,
+        "caseSensitive": null
+      }
+    }
+  ]
+}
