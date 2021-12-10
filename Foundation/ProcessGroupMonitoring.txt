@@ -1,0 +1,16 @@
+[
+  {
+    "schemaVersion": "0.2",
+    "schemaId": "builtin:process.custom-process-monitoring-rule",
+    "value": {
+      "enabled": true,
+      "mode": "MONITORING_OFF",
+      "condition": {
+        "item": "COMMAND_LINE_ARGS",
+        "operator": "CONTAINS",
+        "value": "com.dynatrace.easytravel.launcher.CommandlineLauncher"
+      }
+    },
+    "scope": "environment"
+  }
+]
